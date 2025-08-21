@@ -1,3 +1,154 @@
 @import "tailwindcss";
 
-@config "../tailwind.config.js"
+/* HeroUI Plugin and Sources */
+@plugin "./hero.ts";
+@source "../components/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../app/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}";
+
+/* Custom variant for dark mode */
+@custom-variant dark (&:is(.dark *));
+
+/* Custom border utilities */
+@layer utilities {
+  .border-custom {
+    border-color: #e2e8f0;
+  }
+  
+  .dark .border-custom {
+    border-color: #262626;
+  }
+
+  /* Hide scrollbar while keeping scroll functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+  }
+}
+
+
+/* Custom animations */
+@keyframes bounce-x {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+.animate-bounce-x {
+  animation: bounce-x 1s ease-in-out infinite;
+}
+
+/* Shimmer animation for premium/pricing section */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* Slow pulse for testimonial glows */
+@keyframes pulse-slow {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+/* Gradient utilities for radial and conic gradients */
+  .bg-gradient-radial {
+    background-image: radial-gradient(circle, var(--tw-gradient-stops));
+  }
+
+  .bg-gradient-conic {
+    background-image: conic-gradient(var(--tw-gradient-stops));
+  }
+
+  /* Blob animation for soft decorative shapes */
+  @keyframes blob {
+    0% {
+      transform: translate(0px, 0px) scale(1) rotate(0deg);
+    }
+    33% {
+      transform: translate(30px, -50px) scale(1.1) rotate(120deg);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9) rotate(240deg);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1) rotate(360deg);
+    }
+  }
+
+  /* Wave animation for subtle patterns */
+  @keyframes wave {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100px);
+    }
+  }
+
+  .animate-blob {
+    animation: blob 20s infinite;
+  }
+
+  .animate-wave {
+    animation: wave 10s linear infinite;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .animation-delay-1000 {
+    animation-delay: 1s;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .animation-delay-3000 {
+    animation-delay: 3s;
+  }
+
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+
+  /* Float animation for decorative shapes */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(var(--tw-rotate));
+    }
+    50% {
+      transform: translateY(-20px) rotate(var(--tw-rotate));
+    }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }

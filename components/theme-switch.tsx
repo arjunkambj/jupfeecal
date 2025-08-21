@@ -1,80 +1,37 @@
 "use client";
 
-import { FC } from "react";
-import { VisuallyHidden } from "@react-aria/visually-hidden";
-import { SwitchProps, useSwitch } from "@heroui/switch";
 import { useTheme } from "next-themes";
-import { useIsSSR } from "@react-aria/ssr";
-import clsx from "clsx";
 import { Icon } from "@iconify/react";
+import { useEffect, useState } from "react";
 
-export interface ThemeSwitchProps {
-  className?: string;
-  classNames?: SwitchProps["classNames"];
-}
-
-export const ThemeSwitch: FC<ThemeSwitchProps> = ({
-  className,
-  classNames,
-}) => {
+export function ThemeSwitch() {
   const { theme, setTheme } = useTheme();
-  const isSSR = useIsSSR();
+  const [mounted, setMounted] = useState(false);
 
-  const onChange = () => {
-    theme === "light" ? setTheme("dark") : setTheme("light");
-  };
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  const {
-    Component,
-    slots,
-    isSelected,
-    getBaseProps,
-    getInputProps,
-    getWrapperProps,
-  } = useSwitch({
-    isSelected: theme === "light" || isSSR,
-    "aria-label": `Switch to ${theme === "light" || isSSR ? "dark" : "light"} mode`,
-    onChange,
-  });
+  if (!mounted) {
+    return null;
+  }
 
   return (
-    <Component
-      {...getBaseProps({
-        className: clsx(
-          "px-px transition-opacity hover:opacity-80 cursor-pointer",
-          className,
-          classNames?.base,
-        ),
-      })}
-    >
-      <VisuallyHidden>
-        <input {...getInputProps()} />
-      </VisuallyHidden>
-      <div
-        {...getWrapperProps()}
-        className={slots.wrapper({
-          class: clsx(
-            [
-              "w-auto h-auto",
-              "bg-transparent",
-              "rounded-lg",
-              "flex items-center justify-center",
-              "group-data-[selected=true]:bg-transparent",
-              "!text-default-500",
-              "pt-px",
-              "px-0",
-              "mx-0",
-            ],
-            classNames?.wrapper,
-          ),
-        })}
+    <div className="fixed bottom-5 right-5 z-50">
+      <button
+        aria-label="Toggle theme"
+        className="group relative flex items-center justify-center bg-default-50/70 dark:bg-content1/70 backdrop-blur-md rounded-full w-11 h-11 border border-divider/50 shadow-[0_4px_14px_rgba(0,0,0,0.06)] dark:shadow-[0_6px_20px_rgba(0,0,0,0.25)] transition-all duration-200 hover:border-primary/30 hover:shadow-[0_6px_18px_rgba(0,0,0,0.10)] dark:hover:shadow-[0_8px_26px_rgba(0,0,0,0.32)]"
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       >
-        {!isSelected || isSSR ? (
-          <Icon icon="mdi:sun-outline" />
-        ) : (
-          <Icon icon="mdi:moon-outline" />
-        )}
-      </div>
-    </Component>
+        {/* subtle inner ring for cohesion */}
+        <span className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-white/5 dark:ring-white/10" />
+        <Icon
+          className="w-5 h-5 text-default-600 transition-transform duration-200 group-hover:rotate-180 group-hover:text-primary"
+          icon={theme === "dark" ? "solar:sun-bold" : "solar:moon-bold"}
+        />
+        {/* soft drop highlight for depth on light bg */}
+        <span className="pointer-events-none absolute -z-10 inset-0 rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-none" />
+      </button>
+    </div>
   );
-};
+}

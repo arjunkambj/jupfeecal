@@ -162,7 +162,7 @@ const FeeRow = ({
 };
 
 const FeeBreakdownCard = ({ breakdown }: { breakdown: FeeBreakdown }) => (
-  <Card shadow="none">
+  <Card shadow="none" className="border border-default-100">
     <CardHeader className="pb-0">
       <h3 className="text-lg font-semibold">Fee Breakdown</h3>
     </CardHeader>
@@ -210,7 +210,7 @@ const AdvancedSettings = ({
   params: Partial<FeeCalculationParams>;
   onUpdate: (params: Partial<FeeCalculationParams>) => void;
 }) => (
-  <Card shadow="none">
+  <Card shadow="none" className="border border-default-100">
     <CardHeader>
       <h3 className="text-lg font-semibold">Advanced Settings</h3>
     </CardHeader>
@@ -302,7 +302,7 @@ export default function Home() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
-          <Card shadow="none">
+          <Card shadow="none" className="border border-default-100">
             <CardHeader>
               <h2 className="text-xl font-semibold">Trade Parameters</h2>
             </CardHeader>
@@ -366,7 +366,7 @@ export default function Home() {
         <div className="space-y-6">
           <FeeBreakdownCard breakdown={feeBreakdown} />
 
-          <Card shadow="none">
+          <Card shadow="none" className="border border-default-100">
             <CardHeader>
               <h3 className="text-lg font-semibold">Quick Stats</h3>
             </CardHeader>
@@ -400,12 +400,11 @@ export default function Home() {
             </CardBody>
           </Card>
 
-          <Card shadow="none">
+          <Card shadow="none" className="border border-default-100">
             <CardBody>
               <Button
                 fullWidth
                 color="primary"
-                variant="shadow"
                 onPress={() => {
                   const text = `Jupiter Perpetuals Fee Calculation
 Position Size: ${formatUsd(positionSize)}

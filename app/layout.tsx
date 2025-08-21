@@ -3,6 +3,7 @@ import { Metadata, Viewport } from "next";
 import clsx from "clsx";
 
 import { Providers } from "./providers";
+import { ThemeSwitch } from "@/components/theme-switch";
 
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
@@ -33,11 +34,12 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning lang="en">
       <head />
-      <body className={clsx("min-h-dvh bg-zinc-950 ", fontSans.variable)}>
+      <body className={clsx("min-h-dvh bg-backgroun ", fontSans.variable)}>
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <main className="container mx-auto max-w-7xl pt-12 px-6 flex-grow">
             {children}
           </main>
+          <ThemeSwitch />
         </Providers>
       </body>
     </html>
